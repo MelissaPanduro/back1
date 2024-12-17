@@ -1,0 +1,34 @@
+version: '3'
+
+#services:
+#  app:
+#    image: diegoramos678/spring-reactive:latest  # Nombre de la imagen que construirás
+#    ports:
+#      - "8080:8080"  # Mapea el puerto 8080 del contenedor al host
+#    environment:
+#      DATABASE_URL: ${DATABASE_URL}
+#      DATABASE_USERNAME: ${DATABASE_USERNAME}
+#      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+#      API_KEY: ${API_KEY}
+
+#docker run -p 8080:8080 --name mycontenedor -e DATABASE_URL=r2dbc:postgresql://ep-flat-silence-a44kj12l.us-east-1.aws.neon.tech:5432/service?sslmode=require -e DATABASE_USERNAME=service_owner -e DATABASE_PASSWORD=TXbO5YFWo6GI -e API_KEY=AIzaSyDO05skHcsky6fyKZMcQoH_40-rmEX9TpE diegoramos678/spring-reactive:latest
+
+services:
+  backend:
+    image: diegoramos678/spring-reactive:latest
+    ports:
+      - "8080:8080"
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      DATABASE_USERNAME: ${DATABASE_USERNAME}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      API_KEY: ${API_KEY}
+
+  frontend:
+    image: diegoramos678/vg-web-chat:latest
+    ports:
+      - "4200:4200"
+    environment:
+      API_BACKEND : 'https://miniature-waffle-ggq54jvgpq5fv7j4-8080.app.github.dev'
+    depends_on:
+      - backend

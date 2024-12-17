@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ms-cognitive
+  namespace: vallegrande
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ms-cognitive
+  template:
+    metadata:
+      labels:
+        app: ms-cognitive
+    spec:
+      containers:
+      - name: ms-cognitive
+        image: diegoramos678/spring-test:latest
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DATABASE_URL
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets-credentials
+              key: DATABASE_URL
+        - name: DATABASE_USERNAME
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets-credentials
+              key: DATABASE_USERNAME
+        - name: DATABASE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets-credentials
+              key: DATABASE_PASSWORD
+        - name: API_KEY
+          valueFrom:
+            secretKeyRef:
+              name: database-secrets-credentials
+              key: API_KEY
+        resources:
+          requests:
+            cpu: "500m"  # Asignación de CPU
+            memory: "256Mi"
+          limits:
+            cpu: "1"
+            memory: "512Mi"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ms-cognitive
+  namespace: vallegrande
+spec:
+  type: NodePort
+  ports:
+  - port: 30001
+    targetPort: 8080
+    nodePort: 30001
+  selector:
+    app: ms-cognitive
