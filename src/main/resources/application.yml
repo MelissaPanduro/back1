@@ -2,13 +2,18 @@ spring:
   application:
     name: spring-reactive
   r2dbc: 
-    url: ${DATABASE_URL} #r2dbc:postgresql://ep-flat-silence-a44kj12l.us-east-1.aws.neon.tech:5432/service?sslmode=require
-    username: ${DATABASE_USERNAME} # service_owner
-    password: ${DATABASE_PASSWORD} #TXbO5YFWo6GI
+    url: #${DATABASE_URL} 
+    postgresql://neondb_owner:oHJjPSb2FWD1@ep-square-wildflower-a5mba7jh.us-east-2.aws.neon.tech/neondb?sslmode=require
+    username: #${DATABASE_USERNAME} 
+    neondb_owner
+    password: #${DATABASE_PASSWORD} 
+    oHJjPSb2FWD1
     show-sql: true
 
 gemini:
   api:
-    key: ${API_KEY}
-    #AIzaSyDO05skHcsky6fyKZMcQoH_40-rmEX9TpE
+    key: #${API_KEY}
+    AIzaSyDO05skHcsky6fyKZMcQoH_40-rmEX9TpE
     url: https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-pro:generateContent
+
+  
